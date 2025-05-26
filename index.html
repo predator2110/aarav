@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Simple Ludo Game</title>
+  <style>
+    body { font-family: Arial, sans-serif; text-align: center; background: #f0f0f0; }
+    #board { margin: 40px auto; width: 460px; display: flex; }
+    .cell { width: 40px; height: 40px; border: 1px solid #888; display: flex; align-items: center; justify-content: center; }
+    .token { width: 28px; height: 28px; border-radius: 50%; }
+    .red { background: crimson; }
+    .green { background: seagreen; }
+    #dice { font-size: 2em; margin: 20px; }
+    #roll { padding: 10px 30px; font-size: 1.2em; }
+    #status { margin-top: 20px; font-size: 1.2em; }
+  </style>
+</head>
+<body>
+  <h1>Simple Ludo Game</h1>
+  <div id="board"></div>
+  <div>
+    <button id="roll">🎲 Roll Dice</button>
+    <div id="dice">-</div>
+  </div>
+  <div id="status"></div>
+
+  <script>
+    const WIN_POS = 20;
+    let positions = [0, 0]; // Red, Green
+    let turn = 0; // 0: Red, 1: Green
+    let gameOver = false;
+
+    function drawBoard() {
+      const board = document.getElementById('board');
+      board.innerHTML = '';
+      for (let i = 0; i <= WIN_POS; i++) {
+        const cell = document.createElement('div');
+        cell.className = 'cell';
+        if (positions[0] === i && positions[1] === i) {
+          cell.innerHTML = '<div class="token red" style="margin-right:3px;display:inline-block"></div>' +
+                           '<div class="token green" style="display:inline-block"></div>';
+        } else if (positions[0] === i) {
+          cell.innerHTML = '<div class="token red"></div>';
+        } else if (positions[1] === i) {
+          cell.innerHTML = '<div class="token green"></div>';
+        }
+        board.appendChild(cell);
+      }
+    }
+
+    function rollDice() {
+      if (gameOver) return;
+      const dice = Math.floor(Math.random() * 6) + 1;
+      document.getElementById('dice').textContent = dice;
+      positions[turn] += dice;
+      if (positions[turn] >= WIN_POS) {
+        positions[turn] = WIN_POS;
+        gameOver = true;
+        document.getElementById('status').textContent = `Player ${turn+1} (${turn===0?'Red':'Green'}) Wins! 🎉`;
+      } else {
+        turn = 1 - turn;
+        document.getElementById('status').textContent = `Player ${turn+1}'s (${turn===0?'Red':'Green'}) turn`;
+      }
+      drawBoard();
+    }
+
+    document.getElementById('roll').onclick = rollDice;
+
+    // Initial draw
+    drawBoard();
+    document.getElementById('status').textContent = `Player 1's (Red) turn`;
+  </script>
+</body>
+</html>
