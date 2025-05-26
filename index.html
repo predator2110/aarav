@@ -1,480 +1,319 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ludo King</title>
-    <style>
-        * {
-            margin: 0px;
-            padding: 0px;
-        }
-
-        #main {
-            margin-top: 2%;
-            display: flex;
-            flex-direction: row;
-            justify-content: space-evenly;
-            align-content: center;
-            align-items: center;
-        }
-
-        #board {
-            border: 5px solid black;
-            width: 650px;
-            height: 650px;
-            flex-direction: column;
-        }
-
-        #row1 {
-            display: flex;
-            width: 100%;
-            height: 40%;
-        }
-
-        #row2 {
-            display: flex;
-            width: 100%;
-            height: 20%;
-        }
-
-        #row3 {
-            display: flex;
-            width: 100%;
-            height: 40%;
-        }
-
-        #green {
-            width: 40%;
-            background-color: green;
-            padding: 20px;
-        }
-
-        #yellow {
-            width: 40%;
-            background-color: yellow;
-            padding: 20px;
-        }
-
-        #red {
-            width: 40%;
-            background-color: red;
-            padding: 20px;
-        }
-
-        #blue {
-            width: 40%;
-            background-color: blue;
-            padding: 20px;
-        }
-
-        .inner {
-            border-radius: 20px;
-            background-color: white;
-            height: 100%;
-            width: 100%;
-            display: flex;
-            justify-content: space-evenly;
-            flex-direction: column;
-        }
-
-        #upper {
-            display: flex;
-            flex-direction: row;
-            width: 100%;
-            height: 100%;
-            padding: 5%;
-        }
-
-        #lower {
-            display: flex;
-            flex-direction: row;
-            width: 100%;
-            height: 100%;
-            align-content: center;
-            padding: 5%;
-        }
-
-        .g_green {
-            display: flex;
-            justify-content: center;
-            border-radius: 10%;
-            background-color: green;
-            width: 100%;
-            height: 100%;
-            margin-right: 10%;
-            box-shadow: 3px 3px 3px 3px gray;
-        }
-
-        .g_yellow {
-            display: flex;
-            justify-content: center;
-            border-radius: 10%;
-            background-color: yellow;
-            width: 100%;
-            height: 100%;
-            margin-right: 10%;
-            box-shadow: 3px 3px 3px 3px gray;
-        }
-
-        .g_red {
-            display: flex;
-            justify-content: center;
-            border-radius: 10%;
-            background-color: red;
-            width: 100%;
-            height: 100%;
-            margin-right: 10%;
-            box-shadow: 3px 3px 3px 3px gray;
-        }
-
-        .g_blue {
-            display: flex;
-            justify-content: center;
-            border-radius: 10%;
-            background-color: blue;
-            width: 100%;
-            height: 100%;
-            margin-right: 10%;
-            box-shadow: 3px 3px 3px 3px gray;
-        }
-
-        #yellow_move {
-            display: grid;
-            width: 20%;
-            height: 100%;
-            grid-template-columns: 33% 33% 33%;
-        }
-
-        #red_move {
-            display: grid;
-            width: 20%;
-            height: 100%;
-            grid-template-columns: 33% 33% 33%;
-        }
-
-        #green_move {
-            display: grid;
-            width: 40%;
-            height: 100%;
-            grid-template-rows: 33% 33% 33%;
-            grid-template-columns: 16.5% 16.5% 16.5% 16.5% 16.5% 16.5%;
-        }
-
-        #blue_move {
-            display: grid;
-            width: 40%;
-            height: 100%;
-            grid-template-rows: 33% 33% 33%;
-            grid-template-columns: 16.5% 16.5% 16.5% 16.5% 16.5% 16.5%;
-        }
-
-        .box {
-            width: 100%;
-            height: 100%;
-            border: 1px solid black;
-        }
-
-        .box-y {
-            background-color: yellow;
-        }
-
-        .box-g {
-            background-color: green;
-        }
-
-        .box-b {
-            background-color: blue;
-        }
-
-        .box-r {
-            background-color: red;
-        }
-
-        #multicolor {
-            width: 20%;
-            height: 100%;
-            box-shadow: inset 0 25px 10px 0 yellow, inset 0 -25px 10px 0 red, inset 50px 0 50px 0 green, inset 0 0 50px 35px blue;
-        }
-
-        #dice {
-            display: inline-block;
-        }
-
-        #die {
-            padding: 50px;
-            background-image: url("src/1.png");
-            background-color: rgba(0, 0, 255, 0);
-            background-size: contain;
-            border: 5px solid black;
-            border-radius: 5px;
-        }
-        #b1,
-        #b2,
-        #b3,
-        #b4 {
-            background-image: linear-gradient(blue, rgb(0, 110, 255));
-            border: 1px solid black;
-            box-shadow: 3px 3px 5px black;
-            border-radius: 50%;
-            width: 90%;
-            height: 90%;
-            margin: auto;
-        }
-
-        #g1,
-        #g2,
-        #g3,
-        #g4 {
-            background-image: linear-gradient(green, rgb(94, 255, 0));
-            border: 1px solid black;
-            box-shadow: 3px 3px 5px black;
-            border-radius: 50%;
-            width: 90%;
-            height: 90%;
-            margin: auto;
-            z-index: 1;
-        }
-
-        #y1,
-        #y2,
-        #y3,
-        #y4 {
-            background-image: linear-gradient(yellow, rgb(255, 166, 0));
-            border: 1px solid black;
-            box-shadow: 3px 3px 5px black;
-            border-radius: 50%;
-            width: 90%;
-            height: 90%;
-            margin: auto;
-            z-index: 1;
-        }
-
-        #r1,
-        #r2,
-        #r3,
-        #r4 {
-            background-image: linear-gradient(red, rgb(255, 191, 172));
-            border: 1px solid black;
-            box-shadow: 3px 3px 5px black;
-            border-radius: 50%;
-            width: 90%;
-            height: 90%;
-            margin: 2px;
-            margin: auto;
-            z-index: 1;
-        }
-        #r1,
-        #b1,
-        #g1,
-        #y1 {
-            z-index: 1;
-        }
-        #r2,
-        #b2,
-        #g2,
-        #y2 {
-            z-index: 2;
-        }
-        #r3,
-        #b3,
-        #g3,
-        #y3 {
-            z-index: 3;
-        }
-        #r4,
-        #b4,
-        #g4,
-        #y4 {
-            z-index: 4;
-        }
-    </style>
-    <script defer src="Task01.js"></script>
+  <meta charset="UTF-8">
+  <title>Ludo Game - Simple Web Version</title>
+  <style>
+    body { background: #f0f0f0; font-family: Arial, sans-serif; text-align: center; }
+    h1 { margin-top: 20px; }
+    #game { display: flex; flex-direction: column; align-items: center; }
+    #board { display: grid; grid-template-columns: repeat(15, 32px); grid-template-rows: repeat(15, 32px); gap: 2px; background: #222; }
+    .cell { width: 32px; height: 32px; background: #fff; border-radius: 6px; position: relative; }
+    .home { background: #eee; }
+    .red { background: #e74c3c; }
+    .green { background: #27ae60; }
+    .yellow { background: #f1c40f; }
+    .blue { background: #2980b9; }
+    .token {
+      width: 20px; height: 20px;
+      border-radius: 50%;
+      position: absolute; top: 6px; left: 6px;
+      border: 2px solid #fff;
+      box-shadow: 0 0 2px #0006;
+      cursor: pointer;
+      z-index: 2;
+    }
+    .token.red { background: #c0392b; }
+    .token.green { background: #229954; }
+    .token.yellow { background: #b7950b; }
+    .token.blue { background: #2471a3; }
+    #dice { font-size: 2.2em; margin: 20px 0 10px 0; }
+    #rollBtn { font-size: 1.3em; padding: 8px 24px; border-radius: 8px; border: none; background: #2980b9; color: #fff; cursor: pointer; }
+    #rollBtn:disabled { background: #aaa; cursor: not-allowed; }
+    #turn { font-size: 1.2em; margin: 10px 0; }
+    #msg { margin: 8px 0; color: #c0392b; font-weight: bold; }
+    .win { font-size: 1.4em; color: #27ae60; }
+    /* Responsive */
+    @media (max-width:600px) {
+      #board { transform: scale(0.65); }
+    }
+  </style>
 </head>
-
 <body>
-    <div id="main">
-        <div id="board">
-            <div id="row1">
-                <div id="green">
-                    <div class="inner">
-                        <div id="upper">
-                            <div class="g_green" id="g_g1">
-                                <div id="g1" onclick="green.choose(1)"></div>
-                            </div>
-                            <div class="g_green" id="g_g2">
-                                <div id="g2" onclick="green.choose(2)"></div>
-                            </div>
-                        </div>
-                        <div id="lower">
-                            <div class="g_green" id="g_g3">
-                                <div id="g3" onclick="green.choose(3)"></div>
-                            </div>
-                            <div class="g_green" id="g_g4">
-                                <div id="g4" onclick="green.choose(4)"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div id="yellow_move">
-                    <div class="box" id="24"></div>
-                    <div class="box" id="25"></div>
-                    <div class="box" id="26"></div>
-                    <div class="box" id="23"></div>
-                    <div class="box box-y" id="yf26"></div>
-                    <div class="box box-y" id="27"></div>
-                    <div class="box box-y" id="22"></div>
-                    <div class="box box-y" id="yf27"></div>
-                    <div class="box" id="28"></div>
-                    <div class="box" id="21"></div>
-                    <div class="box box-y" id="yf28"></div>
-                    <div class="box" id="29"></div>
-                    <div class="box" id="20"></div>
-                    <div class="box box-y" id="yf29"></div>
-                    <div class="box" id="30"></div>
-                    <div class="box" id="19"></div>
-                    <div class="box box-y" id="yf30"></div>
-                    <div class="box" id="31"></div>
-                </div>
-                <div id="yellow">
-                    <div class="inner">
-                        <div id="upper">
-                            <div class="g_yellow" id="g_y1">
-                                <div id="y1" onclick="yellow.choose(1)"></div>
-                            </div>
-                            <div class="g_yellow" id="g_y2">
-                                <div id="y2" onclick="yellow.choose(2)"></div>
-                            </div>
-                        </div>
-                        <div id="lower">
-                            <div class="g_yellow" id="g_y3">
-                                <div id="y3" onclick="yellow.choose(3)"></div>
-                            </div>
-                            <div class="g_yellow" id="g_y4">
-                                <div id="y4" onclick="yellow.choose(4)"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div id="row2">
-                <div id="green_move">
-                    <div class="box" id="13"></div>
-                    <div class="box box-g" id="14"></div>
-                    <div class="box" id="15"></div>
-                    <div class="box" id="16"></div>
-                    <div class="box" id="17"></div>
-                    <div class="box" id="18"></div>
-                    <div class="box" id="12"></div>
-                    <div class="box box-g" id="gf13"></div>
-                    <div class="box box-g" id="gf14"></div>
-                    <div class="box box-g" id="gf15"></div>
-                    <div class="box box-g" id="gf16"></div>
-                    <div class="box box-g" id="gf17"></div>
-                    <div class="box" id="11"></div>
-                    <div class="box" id="10"></div>
-                    <div class="box box-g" id="9"></div>
-                    <div class="box" id="8"></div>
-                    <div class="box" id="7"></div>
-                    <div class="box" id="6"></div>
-                </div>
-                <div id="multicolor">
-                    <div class="triangle-up"></div>
-                </div>
-                <div id="blue_move">
-                    <div class="box" id="32"></div>
-                    <div class="box " id="33"></div>
-                    <div class="box" id="34"></div>
-                    <div class="box box-b" id="35"></div>
-                    <div class="box" id="36"></div>
-                    <div class="box" id="37"></div>
-                    <div class="box box-b" id="bf43"></div>
-                    <div class="box box-b" id="bf42"></div>
-                    <div class="box box-b" id="bf41"></div>
-                    <div class="box box-b" id="bf40"></div>
-                    <div class="box box-b" id="bf39"></div>
-                    <div class="box" id="38"></div>
-                    <div class="box" id="44"></div>
-                    <div class="box" id="43"></div>
-                    <div class="box" id="42"></div>
-                    <div class="box" id="41"></div>
-                    <div class="box box-b" id="40"></div>
-                    <div class="box" id="39"></div>
-                </div>
-            </div>
-            <div id="row3">
-                <div id="red">
-                    <div class="inner">
-                        <div id="upper">
-                            <div class="g_red" id="g_r1">
-                                <div id="r1" onclick="red.choose(1)"></div>
-                            </div>
-                            <div class="g_red" id="g_r2">
-                                <div id="r2" onclick="red.choose(2)"></div>
-                            </div>
-                        </div>
-                        <div id="lower">
-                            <div class="g_red" id="g_r3">
-                                <div id="r3" onclick="red.choose(3)"></div>
-                            </div>
-                            <div class="g_red" id="g_r4">
-                                <div id="r4" onclick="red.choose(4)"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div id="red_move">
-                    <div class="box" id="5"></div>
-                    <div class="box box-r" id="rf56"></div>
-                    <div class="box" id="45"></div>
-                    <div class="box" id="4"></div>
-                    <div class="box box-r" id="rf55"></div>
-                    <div class="box" id="46"></div>
-                    <div class="box" id="3"></div>
-                    <div class="box box-r" id="rf54"></div>
-                    <div class="box" id="47"></div>
-                    <div class="box" id="2"></div>
-                    <div class="box box-r" id="rf53"></div>
-                    <div class="box box-r" id="48"></div>
-                    <div class="box box-r" id="1"></div>
-                    <div class="box box-r" id="rf52"></div>
-                    <div class="box" id="49"></div>
-                    <div class="box" id="52"></div>
-                    <div class="box" id="51"></div>
-                    <div class="box" id="50"></div>
-                </div>
-                <div id="blue">
-                    <div class="inner">
-                        <div id="upper">
-                            <div class="g_blue" id="g_b1">
-                                <div id="b1" onclick="blue.choose(1)"></div>
-                            </div>
-                            <div class="g_blue" id="g_b2">
-                                <div id="b2" onclick="blue.choose(2)"></div>
-                            </div>
-                        </div>
-                        <div id="lower">
-                            <div class="g_blue" id="g_b3">
-                                <div id="b3" onclick="blue.choose(3)"></div>
-                            </div>
-                            <div class="g_blue" id="g_b4">
-                                <div id="b4" onclick="blue.choose(4)"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div id="dice">
-            <button id="die" onclick="roll.roll();"></button>
-            <div id="message"></div>
-        </div>
-        <div id="out">
+  <h1>Simple Ludo Game (4 Players)</h1>
+  <div id="game">
+    <div id="board"></div>
+    <div id="dice">🎲</div>
+    <button id="rollBtn">Roll Dice</button>
+    <div id="turn"></div>
+    <div id="msg"></div>
+    <div id="winner" class="win"></div>
+  </div>
+  <script>
+    // --- Ludo Board Path Data ---
+    // Each cell: {x, y} on 15x15 grid
+    // Each player: home positions, start, path, home column
+    const BOARD_SIZE = 15;
+    const PLAYER_COLORS = ['red', 'green', 'yellow', 'blue'];
+    // Path for each player (clockwise, starting at different points)
+    const PATHS = [
+      // Red
+      [
+        {x:6,y:14},{x:6,y:13},{x:6,y:12},{x:6,y:11},{x:6,y:10},{x:5,y:9},
+        {x:4,y:9},{x:3,y:9},{x:2,y:9},{x:1,y:9},{x:0,y:9},{x:0,y:8},
+        {x:1,y:8},{x:2,y:8},{x:3,y:8},{x:4,y:8},{x:5,y:8},{x:6,y:7},
+        {x:6,y:6},{x:7,y:6},{x:8,y:6},{x:8,y:7},{x:9,y:8},{x:9,y:9},
+        {x:9,y:10},{x:9,y:11},{x:9,y:12},{x:9,y:13},{x:9,y:14},{x:8,y:14},
+        {x:7,y:14},{x:6,y:14}, // 31
+        // Home column
+        {x:7,y:13},{x:7,y:12},{x:7,y:11},{x:7,y:10},{x:7,y:9},{x:7,y:8}
+      ],
+      // Green
+      [
+        {x:0,y:8},{x:1,y:8},{x:2,y:8},{x:3,y:8},{x:4,y:8},{x:5,y:8},
+        {x:6,y:7},{x:6,y:6},{x:7,y:6},{x:8,y:6},{x:9,y:6},{x:9,y:5},
+        {x:9,y:4},{x:9,y:3},{x:9,y:2},{x:9,y:1},{x:9,y:0},{x:10,y:0},
+        {x:10,y:1},{x:10,y:2},{x:10,y:3},{x:10,y:4},{x:10,y:5},{x:11,y:6},
+        {x:12,y:6},{x:13,y:6},{x:14,y:6},{x:14,y:7},{x:13,y:7},{x:12,y:7},
+        {x:11,y:7},{x:10,y:7},{x:9,y:7}, // 32
+        // Home column
+        {x:9,y:8},{x:9,y:9},{x:9,y:10},{x:9,y:11},{x:9,y:12},{x:9,y:13}
+      ],
+      // Yellow
+      [
+        {x:8,y:0},{x:8,y:1},{x:8,y:2},{x:8,y:3},{x:8,y:4},{x:8,y:5},
+        {x:8,y:6},{x:9,y:6},{x:10,y:6},{x:11,y:6},{x:12,y:6},{x:13,y:6},
+        {x:14,y:6},{x:14,y:7},{x:13,y:7},{x:12,y:7},{x:11,y:7},{x:10,y:7},
+        {x:9,y:7},{x:8,y:7},{x:8,y:8},{x:7,y:8},{x:6,y:9},{x:5,y:9},
+        {x:4,y:9},{x:3,y:9},{x:2,y:9},{x:1,y:9},{x:0,y:9},{x:0,y:8},
+        {x:1,y:8},{x:2,y:8},{x:3,y:8}, // 32
+        // Home column
+        {x:8,y:9},{x:8,y:10},{x:8,y:11},{x:8,y:12},{x:8,y:13},{x:8,y:14}
+      ],
+      // Blue
+      [
+        {x:14,y:7},{x:13,y:7},{x:12,y:7},{x:11,y:7},{x:10,y:7},{x:9,y:7},
+        {x:8,y:7},{x:8,y:8},{x:7,y:8},{x:6,y:9},{x:5,y:9},{x:4,y:9},
+        {x:3,y:9},{x:2,y:9},{x:1,y:9},{x:0,y:9},{x:0,y:8},{x:1,y:8},
+        {x:2,y:8},{x:3,y:8},{x:4,y:8},{x:5,y:8},{x:6,y:7},{x:7,y:6},
+        {x:8,y:6},{x:9,y:6},{x:10,y:6},{x:11,y:6},{x:12,y:6},{x:13,y:6},
+        {x:14,y:6},{x:14,y:7},{x:14,y:8}, // 32
+        // Home column
+        {x:13,y:7},{x:12,y:7},{x:11,y:7},{x:10,y:7},{x:9,y:7},{x:8,y:7}
+      ]
+    ];
+    // Home positions for each player (4 tokens)
+    const HOME_POS = [
+      [ {x:1,y:13}, {x:1,y:11}, {x:3,y:13}, {x:3,y:11} ], // Red
+      [ {x:1,y:1}, {x:1,y:3}, {x:3,y:1}, {x:3,y:3} ],     // Green
+      [ {x:13,y:1}, {x:11,y:1}, {x:13,y:3}, {x:11,y:3} ], // Yellow
+      [ {x:13,y:13}, {x:13,y:11}, {x:11,y:13}, {x:11,y:11} ] // Blue
+    ];
+    // Start index for each player on their path
+    const START_INDEX = [0,0,0,0];
+    // Home entry index for each player
+    const HOME_ENTRY = [31,31,31,31];
+    // Safe cells (no capturing)
+    const SAFE_CELLS = [
+      {x:6,y:14},{x:0,y:8},{x:8,y:0},{x:14,y:6},
+      {x:8,y:14},{x:14,y:8},{x:6,y:0},{x:0,y:6}
+    ];
 
-        </div>
-    </div>
+    // --- Game State ---
+    let tokens = [
+      // Each: {pos: -1 (home), pathIndex: null, finished: false}
+      [ {pos:-1, pathIndex:null, finished:false}, {pos:-1, pathIndex:null, finished:false}, {pos:-1, pathIndex:null, finished:false}, {pos:-1, pathIndex:null, finished:false} ], // Red
+      [ {pos:-1, pathIndex:null, finished:false}, {pos:-1, pathIndex:null, finished:false}, {pos:-1, pathIndex:null, finished:false}, {pos:-1, pathIndex:null, finished:false} ], // Green
+      [ {pos:-1, pathIndex:null, finished:false}, {pos:-1, pathIndex:null, finished:false}, {pos:-1, pathIndex:null, finished:false}, {pos:-1, pathIndex:null, finished:false} ], // Yellow
+      [ {pos:-1, pathIndex:null, finished:false}, {pos:-1, pathIndex:null, finished:false}, {pos:-1, pathIndex:null, finished:false}, {pos:-1, pathIndex:null, finished:false} ]  // Blue
+    ];
+    let currentPlayer = 0;
+    let diceValue = null;
+    let canRoll = true;
+    let winnerList = [];
+    let consecutiveSix = 0;
+
+    // --- Utility Functions ---
+    function cellKey(x, y) { return `${x},${y}`; }
+    function isSafeCell(x, y) {
+      return SAFE_CELLS.some(c => c.x === x && c.y === y);
+    }
+
+    // --- Board Render ---
+    function renderBoard() {
+      const board = document.getElementById('board');
+      board.innerHTML = '';
+      // Draw 15x15 grid
+      for (let y = 0; y < BOARD_SIZE; y++) {
+        for (let x = 0; x < BOARD_SIZE; x++) {
+          let cell = document.createElement('div');
+          cell.className = 'cell';
+          // Home areas
+          if (x < 6 && y < 6) cell.classList.add('green','home');
+          if (x > 8 && y < 6) cell.classList.add('yellow','home');
+          if (x < 6 && y > 8) cell.classList.add('red','home');
+          if (x > 8 && y > 8) cell.classList.add('blue','home');
+          // Center
+          if (x >= 6 && x <= 8 && y >= 6 && y <= 8) cell.classList.add('home');
+          // Safe cells
+          if (isSafeCell(x, y)) cell.style.border = '2px solid #27ae60';
+          // Home columns
+          if (x === 7 && y > 0 && y < 6) cell.classList.add('green');
+          if (y === 7 && x > 8 && x < 14) cell.classList.add('yellow');
+          if (x === 7 && y > 8 && y < 14) cell.classList.add('red');
+          if (y === 7 && x > 0 && x < 6) cell.classList.add('blue');
+          board.appendChild(cell);
+        }
+      }
+      // Draw tokens
+      for (let p = 0; p < 4; p++) {
+        for (let t = 0; t < 4; t++) {
+          let token = tokens[p][t];
+          let pos;
+          if (token.pos === -1) pos = HOME_POS[p][t];
+          else if (token.finished) continue;
+          else pos = PATHS[p][token.pathIndex];
+          let idx = pos.y * BOARD_SIZE + pos.x;
+          let cell = board.children[idx];
+          let el = document.createElement('div');
+          el.className = `token ${PLAYER_COLORS[p]}`;
+          el.title = `Player ${p+1}, Token ${t+1}`;
+          if (currentPlayer === p && diceValue && isMovable(p, t)) {
+            el.style.outline = '2px solid #fff';
+            el.style.boxShadow = '0 0 8px #fff';
+            el.onclick = () => moveToken(p, t);
+            el.style.cursor = 'pointer';
+          }
+          cell.appendChild(el);
+        }
+      }
+    }
+
+    // --- Dice ---
+    function rollDice() {
+      if (!canRoll) return;
+      diceValue = Math.floor(Math.random()*6)+1;
+      document.getElementById('dice').textContent = `🎲 ${diceValue}`;
+      document.getElementById('msg').textContent = '';
+      canRoll = false;
+      // Check if any move possible
+      let movable = false;
+      for (let t = 0; t < 4; t++) {
+        if (isMovable(currentPlayer, t)) movable = true;
+      }
+      if (!movable) {
+        setTimeout(nextTurn, 1100);
+        document.getElementById('msg').textContent = 'No moves, next player...';
+      }
+      renderBoard();
+    }
+
+    // --- Move Logic ---
+    function isMovable(player, tokenIdx) {
+      let token = tokens[player][tokenIdx];
+      if (token.finished) return false;
+      if (token.pos === -1) {
+        // In home
+        return diceValue === 6;
+      } else {
+        // On board
+        let next = token.pathIndex + diceValue;
+        // Check home entry
+        if (next > HOME_ENTRY[player]+6) return false;
+        return true;
+      }
+    }
+
+    function moveToken(player, tokenIdx) {
+      if (player !== currentPlayer || !diceValue || !isMovable(player, tokenIdx)) return;
+      let token = tokens[player][tokenIdx];
+      if (token.pos === -1 && diceValue === 6) {
+        // Unlock from home
+        token.pos = 0;
+        token.pathIndex = START_INDEX[player];
+      } else if (token.pos !== -1) {
+        // Move ahead
+        token.pathIndex += diceValue;
+        // Home entry
+        if (token.pathIndex > HOME_ENTRY[player]+6) {
+          token.pathIndex -= diceValue; // Can't move
+          document.getElementById('msg').textContent = 'Move not possible!';
+          return;
+        }
+        // Home reached
+        if (token.pathIndex === HOME_ENTRY[player]+6) {
+          token.finished = true;
+        }
+        // Capturing
+        let pos = PATHS[player][token.pathIndex];
+        if (!isSafeCell(pos.x, pos.y)) {
+          for (let op = 0; op < 4; op++) {
+            if (op === player) continue;
+            for (let ot = 0; ot < 4; ot++) {
+              let otok = tokens[op][ot];
+              if (otok.finished || otok.pos === -1) continue;
+              let opos = PATHS[op][otok.pathIndex];
+              if (opos.x === pos.x && opos.y === pos.y) {
+                otok.pos = -1; otok.pathIndex = null;
+                document.getElementById('msg').textContent = `Captured Player ${op+1}'s token!`;
+              }
+            }
+          }
+        }
+      }
+      // Check win
+      let finishedCount = tokens[player].filter(t=>t.finished).length;
+      if (finishedCount === 4 && !winnerList.includes(player)) {
+        winnerList.push(player);
+        document.getElementById('winner').textContent += `Player ${player+1} (${PLAYER_COLORS[player]}) finished! `;
+      }
+      // Dice logic
+      if (diceValue === 6) {
+        consecutiveSix++;
+        if (consecutiveSix < 3) {
+          canRoll = true;
+          document.getElementById('msg').textContent = 'Rolled 6! Roll again.';
+        } else {
+          consecutiveSix = 0;
+          nextTurn();
+        }
+      } else {
+        consecutiveSix = 0;
+        nextTurn();
+      }
+      diceValue = null;
+      renderBoard();
+    }
+
+    function nextTurn() {
+      diceValue = null;
+      canRoll = true;
+      do {
+        currentPlayer = (currentPlayer+1)%4;
+      } while (winnerList.includes(currentPlayer) && winnerList.length < 4);
+      document.getElementById('dice').textContent = '🎲';
+      document.getElementById('msg').textContent = '';
+      renderBoard();
+      updateTurn();
+      // Game over
+      if (winnerList.length === 4) {
+        document.getElementById('msg').textContent = '';
+        document.getElementById('turn').textContent = '';
+        document.getElementById('winner').textContent = 'Game Over!';
+        document.getElementById('rollBtn').disabled = true;
+      }
+    }
+
+    function updateTurn() {
+      document.getElementById('turn').innerHTML =
+        `<span style="color:${PLAYER_COLORS[currentPlayer]}">Player ${currentPlayer+1}'s turn</span>`;
+      document.getElementById('rollBtn').disabled = !canRoll;
+    }
+
+    // --- Init ---
+    document.getElementById('rollBtn').onclick = rollDice;
+    renderBoard();
+    updateTurn();
+  </script>
 </body>
-
 </html>
